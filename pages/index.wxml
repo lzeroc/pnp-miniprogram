@@ -1,0 +1,92 @@
+<view class="content">
+	<view class="fb-headtxt">
+		<view class="txt coloqh">
+			手机号码测算，结合81数理、易经卦象、数字能量、五行力量等多种理论对手机号码进行专业分析及详细解读，通过目录可快速定位。将宇宙万事万物概括为象数理，寓意吉祥的号码可以为我们努力创造人生提供积极正面的诱导和暗示。
+		</view>
+	</view>
+	<view class="fb-input-group">
+		<view class="input-row fb-input">
+			<view class="lable-text">手机</view>
+			<input type="number" name="mobile" placeholder="请输入您的手机号" bindinput ="mobileInput" value="{{mobile}}" />
+		</view>
+		<view class="input-row fb-input">
+			<view class="lable-text">性别</view>
+			<view class="fb-radio">
+				<radio-group bindchange="radioChange">
+					<radio color="#94181a" name="sex" id="boy" type="radio" checked="checked" value="1" />
+					<label for="boy">男</label>
+					<radio color="#94181a" style="margin-left: 40rpx;" name="sex" id="girl" type="radio" value="0" />
+					<label for="girl">女</label>
+				</radio-group>
+			</view>
+		</view>
+		<view class="button-row">
+			<button class="fb-input-but" bindtap="start">开始测算</button>
+		</view>
+		<view class="calculation-tips">
+			<view>提示：如您出现以下情况，将会导致测算准确率下降：</view>
+			<view>1.新换手机号码（磁场未稳）</view>
+			<view>2.号码超过十年（阳星下降）</view>
+			<view>3.一人多号测算（八星浮动）</view>
+		</view>
+	</view>
+	<view class="fb-container">
+		<view class="fb-content">
+			<image src="../images/title_m_sjhm.png" />
+			<view class="not-found" wx:if="{{!queryStatus}}">
+				<image src="../images/cylinder.png" />
+				<view>在上方输入信息，点击测算解锁</view>
+			</view>
+			<view class="query-content" wx:else>
+				<view class="fb-clearfix">号码：<span class="txt-col-red font20">{{mobileText}}</span></view>
+				<view class="fb-clearfix">性别：{{genderText == 1 ? '男' : '女'}}</view>
+				<view class="fb-clearfix" wx:if="{{analyze.length <= 0}}">
+					<label class="label-col-zs">提示<i></i></label>
+					<view>磁场未稳，暂时无法预测</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{analyze.length > 0}}">
+					<label class="label-col-zs">号码主体星位解析<i></i></label>
+					<view wx:for="{{analyze}}">【{{item.text}}】{{item.name}}{{item.level}}级{{item.status}}</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{character != ''}}">
+					<label class="label-col-zs">性格<i></i></label>
+					<view>{{character}}</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{family != ''}}">
+					<label class="label-col-zs">家庭<i></i></label>
+					<view>{{family}}</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{cause != ''}}">
+					<label class="label-col-zs">事业<i></i></label>
+					<view>{{cause}}</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{wealth != ''}}">
+					<label class="label-col-zs">财富<i></i></label>
+					<view>{{wealth}}</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{health != ''}}">
+					<label class="label-col-zs">健康<i></i></label>
+					<view>{{health}}</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{summary != '' && summary != '有现金流枯竭的隐患'}}">
+					<label class="label-col-zs">总结<i></i></label>
+					<view wx:if="{{summaryStatus}}">{{summary}}</view>
+					<view class="cylinder-content" wx:else>
+						<image src="../images/cylinder.png" />
+						<view>观看广告解锁建议</view>
+						<button bindtap="updateSummaryStatus">立即查看</button>
+					</view>
+				</view>
+				<view class="fb-clearfix" wx:if="{{suggest != ''}}">
+					<label class="label-col-zs">建议<i></i></label>
+					<view wx:if="{{suggestStatus}}">{{suggest}}</view>
+					<view class="cylinder-content" wx:else>
+						<image src="../images/cylinder.png" />
+						<view>观看广告解锁建议</view>
+						<button bindtap="updateSuggestStatus">立即查看</button>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
